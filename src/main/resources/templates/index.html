@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- Je associeert de namespace http://www.thymeleaf.org met de prefix th.
+	 Je schrijft met elementen uit deze namespace expressies in de pagina. -->
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<!-- Je maakt een URL met @{nodigeURL}, zoals je in JSP een URL maakt met <c:url>. -->
+	<link rel="icon" th:href="@{/images/groenetenen.ico}" type="image/x-icon">
+	<title>Groene tenen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/groenetenen.css}">
+</head>
+<body>
+	<!-- Thymeleaf gebruikt de data 'begroeting' (doorgekregen van de controller)
+		 als tekst tussen <span> en </span> -->
+	<h1>Groene tenen, <span th:text="${begroeting}"></span>.</h1>
+	<blockquote>De aanleg van een gezellig gazon.</blockquote>
+	<img alt="gazon" th:src="@{/images/gazon.jpg}" class="fullwidth">
+</body>
+</html>
