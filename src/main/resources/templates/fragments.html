@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- 
+	Je beschrijft een fragment als onderdeel van een HTML pagina.
+	Eén pagina kan één of meerdere fragments bevatten.
+-->
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<!--
+	Je definieert een fragment met de naam head en één parameter: title.
+	Dit fragment begint hier en loopt tot de bijbehorende eindtag: </head>. 
+-->
+<head th:fragment="head(title)">
+	<meta charset="UTF-8">
+	<link rel="icon" th:href="@{/images/groenetenen.ico}" type="image/x-icon">
+	<!-- Je gebruikt de parameter title van het fragment. -->
+	<title th:text="${title}"></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" th:href="@{/css/groenetenen.css}">
+</head>
+
+<body>
+	<!-- 
+		Je definieert een fragment met de naam menu.
+	-->
+	<nav th:fragment="menu">
+		<ul>
+			<li><a th:href="@{/}">&#8962;</a></li>
+			<li><a href="#">Filialen</a>
+				<ul>
+					<li><a th:href="@{/filialen/vantotpostcode}">Van tot postcode</a></li>
+					<li><a th:href="@{/filialen/perid}">Per id</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Werknemers</a>
+				<ul>
+					<li><a th:href="@{/werknemers}">Lijst</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Offertes</a>
+				<ul>
+					<li><a th:href="@{/offertes/toevoegen}">Toevoegen</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+	
+</body>
+</html>

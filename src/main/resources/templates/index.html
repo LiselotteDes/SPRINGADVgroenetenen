@@ -2,15 +2,29 @@
 <!-- Je associeert de namespace http://www.thymeleaf.org met de prefix th.
 	 Je schrijft met elementen uit deze namespace expressies in de pagina. -->
 <html lang="nl" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<!-- Je maakt een URL met @{nodigeURL}, zoals je in JSP een URL maakt met <c:url>. -->
-	<link rel="icon" th:href="@{/images/groenetenen.ico}" type="image/x-icon">
-	<title>Groene tenen</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" th:href="@{/css/groenetenen.css}">
-</head>
+<!-- 
+	<head>
+		<meta charset="UTF-8">
+		<!-- Je maakt een URL met @{nodigeURL}, zoals je in JSP een URL maakt met <c:url>. --
+		<link rel="icon" th:href="@{/images/groenetenen.ico}" type="image/x-icon">
+		<title>Groene tenen</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" th:href="@{/css/groenetenen.css}">
+	</head>
+-->
+
+<!-- 
+	Je vervangt het huidig element (<head>...</head>) door het fragment met de naam head
+	in fragments.html. Je geeft 'Groene tenen' mee als waarde voor de parameter title.
+-->
+<head th:replace="fragments::head(title='Groene tenen')"></head>
+
 <body>
+	<!-- 
+		Je vervangt het huidig element (<nav>...</nav>) door het fragment met de naam menu 
+		in fragments.html.
+	-->
+	<nav th:replace="fragments::menu"></nav>
 	<!-- Thymeleaf gebruikt de data 'begroeting' (doorgekregen van de controller)
 		 als tekst tussen <span> en </span> -->
 	<h1>Groene tenen, <span th:text="${begroeting}"></span>.</h1>
