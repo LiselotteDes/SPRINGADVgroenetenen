@@ -24,7 +24,7 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name = "werknemers")
-@NamedEntityGraph(name = "Werknemer.metFiliaal", attributeNodes = @NamedAttributeNode("filiaal"))
+@NamedEntityGraph(name = Werknemer.MET_FILIAAL, attributeNodes = @NamedAttributeNode("filiaal"))
 public class Werknemer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -46,6 +46,7 @@ public class Werknemer implements Serializable {
 	@Digits(integer = 10, fraction = 2)
 	private BigDecimal wedde;
 	private long rijksregisterNr;
+	public static final String MET_FILIAAL = "Werknemer.metFiliaal";
 	
 	public long getId() {
 		return id;
