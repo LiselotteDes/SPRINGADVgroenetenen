@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Van tot postcode')"></head>
+<body>
+	<nav th:replace="fragments::menu"></nav>
+	<h1>Van tot postcode</h1>
+	<!-- 
+		Je vermeldt bij th:action de URL /filialen. Dit is de URL waarnaar de from zijn data zal submitten.
+		Je vermeldt bij th:object de naam van het form object. 
+	-->
+	<form th:action="@{/filialen}" th:object="${vanTotPostcodeForm}" method="get">
+		<label>Van:
+			<!-- 
+				Als er validatiefouten zijn bij het invullen van het attribuut van in het form object, 
+				toon je de foutboodschap die hoort bij dit attribuut. 
+				Je associeert met *{van} het attribuut van het form object met dit invoervak.
+			-->
+			<span th:if="${#fields.hasErrors('van')}" th:errors="*{van}"></span>
+			<input th:field="*{van}" type="number" required min="1000" max="9999" autofocus>
+		</label>
+		<label>Tot:
+			<span th:if="${#fields.hasErrors('tot')}" th:errors="*{tot}"></span>
+			<input th:field="*{tot}" type="number" required min="1000" max="9999">
+		</label>
+		<input type="submit" value="zoeken">
+	</form>
+	<!--
+		Je itereert over de verzameling in ${filialen}.
+		Je krijgt bij iedere iteratie het Filiaal object aangeboden in de variabele filiaal.
+		Thymeleaf maakt per iteratie het huidig element (<div>...</div>) en al zijn child elementen.
+	-->
+	<div th:each="filiaal:${filialen}">
+		<h2 th:text="${filiaal.naam}"></h2>
+		<div th:text="|${filiaal.adres.straat} ${filiaal.adres.huisNr}|"></div>
+		<div th:text="|${filiaal.adres.postcode} ${filiaal.adres.gemeente}"></div>
+	</div>
+</body>
+</html>
