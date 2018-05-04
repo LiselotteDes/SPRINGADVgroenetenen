@@ -20,6 +20,7 @@
 <head th:replace="fragments::head(title='Groene tenen')"></head>
 
 <body>
+	<div th:if="${param.fout != null}" th:text="${param.fout}" class="fout"></div>
 	<!-- 
 		Je vervangt het huidig element (<nav>...</nav>) door het fragment met de naam menu 
 		in fragments.html.

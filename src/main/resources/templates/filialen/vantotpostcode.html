@@ -33,6 +33,11 @@
 		<h2 th:text="${filiaal.naam}"></h2>
 		<div th:text="|${filiaal.adres.straat} ${filiaal.adres.huisNr}|"></div>
 		<div th:text="|${filiaal.adres.postcode} ${filiaal.adres.gemeente}"></div>
+		<!--
+			Je maakt een URL template /filialen/{id}.
+			Je maakt een URL, gebaseerd op deze URL template, waarbij de path variabele id vervangen wordt door de id van het huidig filiaal. 
+		-->
+		<div><a th:href="@{/filialen/{id}(id=${filiaal.id})}">Detail</a></div>
 	</div>
 </body>
 </html>

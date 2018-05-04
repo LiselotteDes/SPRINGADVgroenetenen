@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title=${filiaal.naam})"></head>
+
+<body>
+	<nav th:replace="fragments::menu"></nav>
+	<h1 th:text="${filiaal.naam}"></h1>
+	<dl>
+		<dt>Straat</dt><dd th:text="${filiaal.adres.straat}"></dd>
+		<dt>Huisnr.</dt><dd th:text="${filiaal.adres.huisNr}"></dd>
+		<dt>Postcode</dt><dd th:text="${filiaal.adres.postcode}"></dd>
+		<dt>Gemeente</dt><dd th:text="${filiaal.adres.gemeente}"></dd>
+		<dt>Type</dt>
+		<!-- Als het attribuut hoofdFiliaal de waarde true bevat, stuur je de tekst Hoofdfiliaal naar de browser. Anders stuur je de tekst Bijfiliaal. -->
+		<dd th:text="${filiaal.hoofdFiliaal ? 'Hoofdfiliaal' : 'Bijfiliaal'}"></dd>
+		<!--
+			Het attribuut waardeGebouw is in de class Filiaal voorzien van @NumberFormat. 
+			Je gebruikt dubbele accolades om de bijbehorende opmaak hier toe te passen.
+		 -->
+		<dt>Waarde Gebouw</dt><dd th:text="${{filiaal.waardeGebouw}}"></dd>
+		<!-- 
+			Het attribuut inGebruikName is in de class Filiaal voorzien van @DateTimeFormat.
+			Je gebruikt dubbele accolades om de bijbehorende opmaak hier toe te passen.
+		-->
+		<dt>In gebruikname</dt><dd th:text="${filiaal.inGebruikName}"></dd>
+	</dl>
+</body>
+</html>
