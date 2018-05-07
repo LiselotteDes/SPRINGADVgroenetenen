@@ -3,6 +3,7 @@ package be.vdab.groenetenen.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -45,6 +46,7 @@ public class Werknemer implements Serializable {
 	@NumberFormat(style = Style.NUMBER)
 	@Digits(integer = 10, fraction = 2)
 	private BigDecimal wedde;
+	@Column(unique = true)
 	private long rijksregisterNr;
 	public static final String MET_FILIAAL = "Werknemer.metFiliaal";
 	
