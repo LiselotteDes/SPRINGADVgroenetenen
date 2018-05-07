@@ -6,15 +6,31 @@
 	<h1>Werknemers</h1>
 	<table>
 		<thead>
-			<tr><th>Voornaam</th><th>Familienaam</th><th>Filiaal</th></tr>
+			<tr>
+				<th><a th:href="@{/werknemers?sort=voornaam}">Voornaam</a></th>
+				<th><a th:href="@{/werknemers?sort=familienaam}">Familienaam</a></th>
+				<th><a th:href="@{/werknemers?sort=filiaal.naam}">Filiaal</a></th>
+			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="werknemer:${werknemers}">
+			<tr th:each="werknemer:${page.content}">
 				<td th:text="${werknemer.voornaam}"></td>
 				<td th:text="${werknemer.familienaam}"></td>
 				<td th:text="${werknemer.filiaal.naam}"></td>
 			</tr>
 		</tbody>
 	</table>
+	<p class="pagineren">
+		<!-- 
+			De expressie ${#numbers.sequence(1,page.totalPages)} genereert een reeks getallen van 1 tot en met het aantal pagina's.
+			Je itereert over deze reeks met een variabele pageNr.
+		-->
+		<span th:each="pageNr:${#numbers.sequence(1,page.totalPages)}">
+			<!-- Als pageNr gelijk is aan het volgnummer van de huidig getoonde pagina, toon je pageNr als platte tekst. -->
+			<span th:if="${pageNr - 1 == page.number}" th:text="${pageNr}"></span>
+			<!-- Als pageNr verschilt van het volgnummer van de huidig getoonde pagina, toon je pageNr als hyperlink. -->
+			<a th:if="${pageNr - 1 != page.number}" th:text="${pageNr}" th:href="@{/werknemers(page=${pageNr-1},sort=${param.sort})}"></a>
+		</span>
+	</p>
 </body>
 </html>
