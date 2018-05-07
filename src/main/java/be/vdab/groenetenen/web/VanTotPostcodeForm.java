@@ -2,14 +2,14 @@ package be.vdab.groenetenen.web;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Range;
+import be.vdab.groenetenen.constraints.Postcode;
 
 public class VanTotPostcodeForm {
 	@NotNull
-	@Range(min = 1000, max = 9999)
+	@Postcode
 	private Integer van;
 	@NotNull
-	@Range(min = 1000, max = 9999)
+	@Postcode
 	private Integer tot;
 	/*
 	 * Reden dat de private variabelen Integer zijn en geen int.
