@@ -9,10 +9,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
-
-import org.hibernate.validator.constraints.Range;
 
 /*
  * STAP 1: Je definieert hoe lang Java de annotation behoudt. 
@@ -30,23 +27,30 @@ import org.hibernate.validator.constraints.Range;
 /*
  * STAP 3: Je tikt bij een annotation @Constraint als die annotation een 'validation' annotation is.
  * De parameter validatedBy is verplictht te vermelden. 
- * Je geeft een lege array mee als je de eerste manier gebruikt om een validation annotation te maken.
+ * 1°) Je geeft een lege array mee als je de eerste manier gebruikt om een validation annotation te maken.
+ * 2°) Je definieert in de huidige source enkel de annotation @Postcode. 
+ * Je definieert in een aparte class (PostcodeValidator) de validatie code (ligt de waarde tussen 1000 en 9999?).
+ * Je koppelt deze class aan de annotation via @Constraint.
  */
-@Constraint(validatedBy = {})
+@Constraint(validatedBy = PostcodeValidator.class)
+
 /*
+ * (Validation annotation maken als samenstelling van andere validation annotations:
  * STAP 4: Je vermeldt de bestaande bean validation annotation waarop je de eigen bean validation baseert.
- * Je mag ook meer dan één bestaande bean validation annotation vermelden.
+ * Je mag ook meer dan één bestaande bean validation annotation vermelden.)
  */
-@Range(min = 1000, max = 9999)
+/*@Range(min = 1000, max = 9999)*/
+
 /*
  * STAP 5: Je definieert een annotation met het keyword @interface.
  */
 public @interface Postcode {
 	/*
-	 * Je geeft aan dat je de message parameter van @Range wil overschrijven met een eigen waarde.
-	 * Je doet dit op de volgende regel.
+	 * (Je geeft aan dat je de message parameter van @Range wil overschrijven met een eigen waarde.
+	 * Je doet dit op de volgende regel.)
 	 */
-	@OverridesAttribute(constraint = Range.class, name = "message")
+	/*@OverridesAttribute(constraint = Range.class, name = "message")*/
+	
 	/*
 	 * Je definieert een annotation parameter. Je doet dit met de syntax van een method declaratie.
 	 * String message() betekent dat je aan @Postcode een parameter message kan meegeven.
