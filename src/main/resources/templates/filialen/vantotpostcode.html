@@ -23,6 +23,15 @@
 			<input th:field="*{tot}" type="number" required min="1000" max="9999">
 		</label>
 		<input type="submit" value="zoeken">
+		<!-- 
+			De expressie ${#fields.hasGlobalErrors()} geeft true terug als het command object fouten bevat die niet aan één veld verbonden zijn.
+		-->
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<!-- 
+				Je itereert met een variabele err over deze fouten 
+			-->
+			<div class="fout" th:each="err: ${#fields.globalErrors()}" th:text="${err}"></div>
+		</div>
 	</form>
 	<!--
 		Je itereert over de verzameling in ${filialen}.

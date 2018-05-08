@@ -58,7 +58,7 @@ public @interface Postcode {
 	 * message is een optionele parameter. Als je hem niet meegeeft, krijgt bij een default waarde.
 	 * Je geeft deze waarde mee met het keyword default.
 	 */
-	String message() default "{be.vdab.groenetenen.constraints.Postcode}";
+	String message() default "{be.vdab.groenetenen.constraints.Postcode.message}";
 	/*
 	 * Elke validation annotation moet ook een optionele parameter groups hebben.
 	 * Je ziet verder in de cursus wat groups zijn.
