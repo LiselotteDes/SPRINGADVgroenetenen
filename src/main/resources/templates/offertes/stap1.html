@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Offerte toevoegen: stap 1')"></head>
+<body>
+	<nav th:replace="fragments::menu"></nav>
+	<h1>Offerte toevoegen: stap 1</h1>
+	<form th:action="@{/offertes/toevoegen}" th:object="${offerte}" method="post">
+		<label>
+			Voornaam:
+			<span th:if="${#fields.hasErrors('voornaam')}" th:errors="*{voornaam}"></span>
+			<input th:field="*{voornaam}" required autofocus>
+		</label>
+		<label>
+			Familienaam:
+			<span th:if="${#fields.hasErrors('familienaam')}" th:errors="*{familienaam}"></span>
+			<input th:field="*{familienaam}" required>
+		</label>
+		<label>
+			Email adres:
+			<span th:if="${#fields.hasErrors('emailadres')}" th:errors="*{emailadres}"></span>
+			<input th:field="*{emailadres}" type="email" required>
+		</label>
+		<!-- 
+			Je geeft aan de submit knop ook een name.
+			Wanneer de form gesubmit wordt, zal de browser naast de parameters voornaam, familienaam en emailadres 
+			ook een parameter stap2 naar de webserver sturen.
+			Deze parameter bevat de tekst van de knop: Stap 2.
+		-->
+		<input type="submit" value="Stap 2" name="stap2">
+	</form>
+</body>
+</html>
