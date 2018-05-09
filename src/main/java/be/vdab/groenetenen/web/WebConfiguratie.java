@@ -4,7 +4,8 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+//import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration		/*Je tikt @Configuration voor een class waarbinnen je met @Bean Spring beans maakt.*/
 class WebConfiguratie {
@@ -16,8 +17,10 @@ class WebConfiguratie {
 	 * Spring houdt die bean bij zolang de website draait.
 	 */
 	@Bean
-	FixedLocaleResolver localeResolver() {
-		return new FixedLocaleResolver(new Locale("fr", "BE"));		/*De class Locale stelt een combinatie van een land en een taal voor.*/
+	/*FixedLocaleResolver*/ 
+	SessionLocaleResolver localeResolver() {
+		/*return new FixedLocaleResolver(new Locale("fr", "BE"));		/*De class Locale stelt een combinatie van een land en een taal voor.*/
+		return new SessionLocaleResolver();
 	}
 	
 }
