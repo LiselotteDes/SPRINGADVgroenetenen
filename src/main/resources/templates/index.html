@@ -15,9 +15,11 @@
 
 <!-- 
 	Je vervangt het huidig element (<head>...</head>) door het fragment met de naam head
-	in fragments.html. Je geeft 'Groene tenen' mee als waarde voor de parameter title.
+	in fragments.html. (Je geeft 'Groene tenen' mee als waarde voor de parameter title.)
+	Je haalt de tekst op die hoort bij de key groeneTenen uit een resource bundle.
+	Je doet dit met de syntax #{keyVanDeOpTeHalenTekst}.
 -->
-<head th:replace="fragments::head(title='Groene tenen')"></head>
+<head th:replace="fragments::head(title=#{groeneTenen})"></head>
 
 <body>
 	<div th:if="${param.fout != null}" th:text="${param.fout}" class="fout"></div>
@@ -28,8 +30,16 @@
 	<nav th:replace="fragments::menu"></nav>
 	<!-- Thymeleaf gebruikt de data 'begroeting' (doorgekregen van de controller)
 		 als tekst tussen <span> en </span> -->
-	<h1>Groene tenen, <span th:text="${begroeting}"></span>.</h1>
-	<blockquote>De aanleg van een gezellig gazon.</blockquote>
-	<img alt="gazon" th:src="@{/images/gazon.jpg}" class="fullwidth">
+	<h1>
+		<span th:text="#{groeneTenen}"></span>, 
+		<!-- 
+			Je leest de inhoud van de variabele begroeting met ${begroeting}.
+			Deze inhoud is bijvoorbeeld goedeMorgen.
+			Je gebruikt deze inhoud als key uit een resource bundle, om de bijbehorende tekst op te halen.
+		-->
+		<span th:text="#{${begroeting}}"></span>.
+	</h1>
+	<blockquote th:text="#{aanlegGazon}"></blockquote>
+	<img alt="#{gazon}" th:src="@{/images/gazon.jpg}" class="fullwidth">
 </body>
 </html>
