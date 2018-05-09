@@ -4,9 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 //import org.springframework.web.servlet.i18n.FixedLocaleResolver;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+//import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration		/*Je tikt @Configuration voor een class waarbinnen je met @Bean Spring beans maakt.*/
 class WebConfiguratie implements WebMvcConfigurer {
@@ -23,9 +24,13 @@ class WebConfiguratie implements WebMvcConfigurer {
 	 */
 	@Bean
 	/*FixedLocaleResolver*/ 
-	SessionLocaleResolver localeResolver() {
+	/*SessionLocaleResolver*/
+	CookieLocaleResolver localeResolver() {
 		/*return new FixedLocaleResolver(new Locale("fr", "BE"));		/*De class Locale stelt een combinatie van een land en een taal voor.*/
-		return new SessionLocaleResolver();
+		/*return new SessionLocaleResolver();*/
+		CookieLocaleResolver resolver = new CookieLocaleResolver();
+		resolver.setCookieMaxAge(604_800);
+		return resolver;
 	}
 	
 	/*
