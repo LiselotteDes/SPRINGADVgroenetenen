@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,14 @@ import be.vdab.groenetenen.entities.Filiaal;
 import be.vdab.groenetenen.services.FiliaalService;
 
 @Controller
-@RequestMapping("filialen")
+@RequestMapping(path = "filialen", produces = MediaType.TEXT_HTML_VALUE)
+/*
+ * "Niet-browser clients rest requests"
+ * @RequestMapping: produces bevat het data formaat van de response. De MediaType constante TEXT_HTML_VALUE bevat text/html.
+ * Je geeft dus aan dat de response data in HTML formaat bevat.
+ * Spring stuurt vanaf nu requests waarvan de URL begint met /filialen naar de controller, als de request header Accept de waarde text/html bevat.
+ * Dit is het geval bij browsers, niet bij andere clients.
+ */
 class FiliaalController {
 	private final static String VAN_TOT_POSTCODE_VIEW = "filialen/vantotpostcode";
 	private final FiliaalService filiaalService;

@@ -5,12 +5,31 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 import org.hibernate.validator.constraints.SafeHtml;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
 import be.vdab.groenetenen.constraints.Postcode;
 
+
+/*
+ * "Niet-browser clients rest requests"
+ * @XmlAccessorType(XmlAccessType.FIELD):
+ * JAXB converteert standaard een object van en naar XML met getters en setters.
+ * Met deze annotation heeft JAXB geen getters of setters nodig.
+ * Zo blijft de value object class Adres immutable (geen setters).
+ * 
+ * @JsonAutoDetect(fieldVisibility=Visibility.ANY):
+ * Jackson converteert standaard en object van en naar JSON met getters en setters.
+ * Met deze annotation heeft Jackson geen getters of setters nodig.
+ */
 @Embeddable
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonAutoDetect(fieldVisibility=Visibility.ANY)
 public class Adres implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotBlank
