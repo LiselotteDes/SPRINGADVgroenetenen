@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Filialen per id')"></head>
+
+<body>
+	<nav th:replace="fragments::menu"></nav>
+	<h1>Filialen per id</h1>
+	
+	<form id="zoekForm">
+		<label>
+			Id:
+			<input id="filiaalId" required type="number" min="1" autofocus/>
+			<input type="submit" value="Zoeken">
+		</label>
+	</form>
+	
+	<dl>
+		<dt>Naam</dt>
+		<dd id="naam"></dd>
+		<dt>Adres</dt>
+		<dd id="adres"></dd>
+	</dl>
+	
+	<script th:src="@{/scripts/perid.js}"></script>
+	
+</body>
+</html>

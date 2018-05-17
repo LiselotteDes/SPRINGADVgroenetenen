@@ -65,4 +65,13 @@ class FiliaalController {
 		redirectAttributes.addAttribute("fout", "Filiaal niet gevonden");
 		return new ModelAndView(REDIRECT_FILIAAL_NIET_GEVONDEN);
 	}
+	
+	/* "Javascript code als REST client (AJAX requests)" */
+	
+	private static final String PER_ID_VIEW = "filialen/perid";
+	
+	@GetMapping("perid")
+	String findById() {
+		return PER_ID_VIEW;
+	}
 }
