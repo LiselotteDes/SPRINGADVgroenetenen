@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Naar dollar')"></head>
+
+<body>
+	<nav th:replace="fragments::menu"></nav>
+	
+	<div th:if="${fout == null}">
+		<h1>
+			&euro;
+			<span th:text="${{euroDollar.euro}}"></span>
+			is $
+			<span th:text="${{euroDollar.dollar}}"></span>
+		</h1>
+	</div>
+	
+	<div th:if="${fout != null}">
+		<div th:text="${fout}" class="fout"></div>
+	</div>
+</body>
+</html>

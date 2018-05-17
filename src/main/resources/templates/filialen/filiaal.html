@@ -17,7 +17,11 @@
 			Het attribuut waardeGebouw is in de class Filiaal voorzien van @NumberFormat. 
 			Je gebruikt dubbele accolades om de bijbehorende opmaak hier toe te passen.
 		 -->
-		<dt>Waarde Gebouw</dt><dd th:text="${{filiaal.waardeGebouw}}"></dd>
+		<dt>Waarde Gebouw</dt>
+		<dd>
+			<span th:text="${{filiaal.waardeGebouw}}"></span>
+			<a th:href="@{/euro/{euro}/naardollar(euro=${filiaal.waardeGebouw})}"> in $</a>
+		</dd>
 		<!-- 
 			Het attribuut inGebruikName is in de class Filiaal voorzien van @DateTimeFormat.
 			Je gebruikt dubbele accolades om de bijbehorende opmaak hier toe te passen.
