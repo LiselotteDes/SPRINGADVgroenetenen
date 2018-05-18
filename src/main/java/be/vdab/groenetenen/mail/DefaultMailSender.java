@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import be.vdab.groenetenen.entities.Offerte;
@@ -25,6 +26,7 @@ class DefaultMailSender implements MailSender {
 	}
 
 	@Override
+	@Async		// Je verstuurt de mail (trage operatie) in een aparte thread. De oorspronkelijke thread stuurt intussen een response naar de browser.
 	public void nieuweOfferte(Offerte offerte, String offertesURL) {
 		try {
 			// SimpleMailMessage message = new SimpleMailMessage();		// SimpleMailMessage stelt een email zonder opmaak voor.
