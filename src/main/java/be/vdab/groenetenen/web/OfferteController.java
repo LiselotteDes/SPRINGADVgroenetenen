@@ -1,11 +1,12 @@
 package be.vdab.groenetenen.web;
 
-import java.net.URL;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -64,16 +65,31 @@ class OfferteController {
 	}
 	
 	private static final String REDIRECT_URL_NA_TOEVOEGEN = "redirect:/";
+	
 	@PostMapping(value="toevoegen", params="opslaan")
 	String create(@Validated(Offerte.Stap2.class) Offerte offerte, 
 				BindingResult bindingResult, 
-				SessionStatus sessionStatus) {	
-				/*Om de HttpSession variabele te verwijderen geef je aan een @GetMapping of @PostMapping method een SessionStatus parameter mee.*/
+				/*Om de HttpSession variabele te verwijderen geef je aan een @Get/PostMapping method een SessionStatus parameter mee.*/
+				SessionStatus sessionStatus,
+				/*"Mail met opmaak en een hyperlink":
+				 * HttpServletRequest bevat low-level informatie over de huidige browser request, waaronder de URL van de request.*/
+				HttpServletRequest request) {	
+		
 		if (bindingResult.hasErrors()) {
 			return STAP_2_VIEW;
 		}
-		offerteService.create(offerte);
+		
+		String offertesURL = request.getRequestURL().toString().replace("toevoegen", "");
+		offerteService.create(offerte, offertesURL);
 		sessionStatus.setComplete();		/*Je verwijdert de HttpSession variabele met de SessionStatus method setComplete.*/
 		return REDIRECT_URL_NA_TOEVOEGEN;
+	}
+	
+	/* "Mail met opmaak en een hyperlink": Volgende method verwerkt de request als de gebruiker op de hyperlink in de ontvangen email klikt.*/
+	private static final String OFFERTE_VIEW = "offertes/offerte";
+	
+	@GetMapping("{offerte}")
+	ModelAndView read(@PathVariable Offerte offerte) {
+		return new ModelAndView(OFFERTE_VIEW).addObject(offerte);
 	}
 }
