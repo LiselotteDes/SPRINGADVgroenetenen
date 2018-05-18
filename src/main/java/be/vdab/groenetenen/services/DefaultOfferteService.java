@@ -36,7 +36,7 @@ class DefaultOfferteService implements OfferteService {
 	}
 	
 	@Override
-	@Scheduled(/*cron = "0 0/1 * 1/1 * ?"*/ fixedRate = 60000)	// test = om de minuut
+//	@Scheduled(/*cron = "0 0/1 * 1/1 * ?"*/ fixedRate = 60000)	// test = om de minuut
 	public void aantalOffertesMail() {
 		mailSender.aantalOffertesMail(offerteRepository.count());
 	}
