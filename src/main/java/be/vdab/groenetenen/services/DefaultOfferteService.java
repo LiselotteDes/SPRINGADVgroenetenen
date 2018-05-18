@@ -2,6 +2,7 @@ package be.vdab.groenetenen.services;
 
 import java.util.Optional;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,5 +33,11 @@ class DefaultOfferteService implements OfferteService {
 	@Override
 	public Optional<Offerte> read(long id) {
 		return offerteRepository.findById(id);
+	}
+	
+	@Override
+	@Scheduled(/*cron = "0 0/1 * 1/1 * ?"*/ fixedRate = 60000)	// test = om de minuut
+	public void aantalOffertesMail() {
+		mailSender.aantalOffertesMail(offerteRepository.count());
 	}
 }

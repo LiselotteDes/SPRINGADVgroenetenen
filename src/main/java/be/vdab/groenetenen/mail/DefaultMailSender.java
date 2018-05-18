@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,15 +20,21 @@ class DefaultMailSender implements MailSender {
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(DefaultMailSender.class);
 	private final JavaMailSender sender;
+	private final String emailAdresWebMaster;
+	
 	/*Spring maakt een bean die de interface JavaMailSender implementeert en initialiseert deze class met de mail eigenschappen uit application.properties.
 	 *Als je in jouw code een mail wil versturen injecteer je deze bean in je code. De bean helpt je een mail te versturen.*/
-	DefaultMailSender(JavaMailSender sender) {
+	DefaultMailSender(JavaMailSender sender, @Value("${emailAdresWebMaster}") String emailAdresWebMaster) {
+		
 		this.sender = sender;
+		this.emailAdresWebMaster = emailAdresWebMaster;
+		
 	}
 
 	@Override
 	@Async		// Je verstuurt de mail (trage operatie) in een aparte thread. De oorspronkelijke thread stuurt intussen een response naar de browser.
 	public void nieuweOfferte(Offerte offerte, String offertesURL) {
+		
 		try {
 			// SimpleMailMessage message = new SimpleMailMessage();		// SimpleMailMessage stelt een email zonder opmaak voor.
 			MimeMessage message = sender.createMimeMessage();			// MimeMessage stelt een email met HTML opmaak voor.
@@ -53,6 +60,26 @@ class DefaultMailSender implements MailSender {
 		} catch (MailException | MessagingException ex) {
 			LOGGER.error("Kan mail nieuwe offerte niet versturen", ex);
 			throw new KanMailNietZendenException();
+		}
+		
+	}
+	
+	@Override
+	public void aantalOffertesMail(long aantal) {
+		
+		try {
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message);
+			helper.setTo(emailAdresWebMaster);
+			helper.setSubject("Aantal offertes");
+			helper.setText("Aantal offertes: <strong>" + aantal + "</strong>", true);
+			sender.send(message);
+			
+		} catch (MailException | MessagingException ex) {
+			
+			LOGGER.error("Kan mail aantal offertes niet versturen", ex);
+			throw new KanMailNietZendenException();
+			
 		}
 	}
 }
