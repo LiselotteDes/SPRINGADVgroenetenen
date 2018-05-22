@@ -12,13 +12,22 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import be.vdab.groenetenen.adapters.LocalDateAdapter;
+
 @Entity
 @Table(name = "offertes")
+/* [Java Messaging System]
+ * De class bevat geen setter voor id. Met deze regel benadert JAXB de private variabelen rechtstreeks, zonder tussenkomst van getters en setters.
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Offerte implements Serializable {
 	/*
 	 * Je definieert een validation group als een lege interface.
@@ -41,6 +50,11 @@ public class Offerte implements Serializable {
 	@Email(groups = Stap1.class)
 	private String emailadres;
 	@DateTimeFormat(style = "S-")
+	/* [Java Messaging System]
+	 * Standaard kan JAXB geen LocalDate converteren van/naar een String.
+	 * Je verwijst naar de class (die je ook al gebruikte bij REST) die helpt deze conversie te doen.
+	 */
+	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	private LocalDate aangemaakt = LocalDate.now();
 	@NotNull(groups = Stap2.class)
 	@Min(value = 1, groups = Stap2.class)

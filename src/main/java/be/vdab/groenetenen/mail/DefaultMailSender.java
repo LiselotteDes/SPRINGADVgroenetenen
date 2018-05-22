@@ -32,7 +32,9 @@ class DefaultMailSender implements MailSender {
 	}
 
 	@Override
-	@Async		// Je verstuurt de mail (trage operatie) in een aparte thread. De oorspronkelijke thread stuurt intussen een response naar de browser.
+	// @Async	// Je verstuurt de mail (trage operatie) in een aparte thread. De oorspronkelijke thread stuurt intussen een response naar de browser.
+				/* [Java Messagin System]: @Async mag je verwijderen: 
+				 * het verwerken van messages van een message broker gebeurt sowieso in een achtergrondtaak. */
 	public void nieuweOfferte(Offerte offerte, String offertesURL) {
 		
 		try {
