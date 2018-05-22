@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Inloggen')"></head>
+<body>
+	
+	<nav th:replace="fragments::menu"></nav>
+	
+	<h1>Inloggen</h1>
+	
+	<form th:action="@{/login}" method="post">
+		<label>
+			Gebruikersnaam:
+			<input name="username" required autofocus>
+		</label>
+		<label>
+			Paswoord:
+			<input name="password" type="password" required>
+		</label>
+		<input type="submit" value="Inloggen">
+	</form>
+	
+</body>
+</html>

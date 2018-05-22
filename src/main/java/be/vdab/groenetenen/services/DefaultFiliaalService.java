@@ -53,4 +53,10 @@ class DefaultFiliaalService implements FiliaalService {
 	public List<Filiaal> findAll() {
 		return filiaalRepository.findAll();
 	}
+	
+	@Override
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+	public void afschrijven(long id) {
+		filiaalRepository.findById(id).ifPresent(filiaal -> filiaal.afschrijven());
+	}
 }

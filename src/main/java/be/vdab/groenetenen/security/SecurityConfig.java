@@ -46,7 +46,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override	// Je overridet de method die de HTTP beveiliging van Spring security configureert.
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.formLogin()	// De gebruiker authenticeert zich door zijn gebruikersnaam en paswoord te tikken in een HTML form.
+		http
+			//.csrf().disable()	// Zet de CSRF beveiliging die standaard actief is in Spring af.
+			.formLogin()		// De gebruiker authenticeert zich door zijn gebruikersnaam en paswoord te tikken in een HTML form.
 			.and()
 			.authorizeRequests()
 			 // Je definieert autorisatie: enkel ingelogde gebruikers met de authority manager kunnen de URL /offertes/toevoegen aanspreken.
