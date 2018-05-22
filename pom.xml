@@ -78,12 +78,17 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
 			<!--
 				De library van deze dependency bevat functionaliteit om Java objecten te converteren naar XML 
 				en XML te converteren naar Java objecten.
 			-->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
+			<!-- Spring security dependencies: 	-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 	</dependencies>
 
