@@ -49,6 +49,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			//.csrf().disable()	// Zet de CSRF beveiliging die standaard actief is in Spring af.
 			.formLogin()		// De gebruiker authenticeert zich door zijn gebruikersnaam en paswoord te tikken in een HTML form.
+			.loginPage("/login")
 			.and()
 			.authorizeRequests()
 			 // Je definieert autorisatie: enkel ingelogde gebruikers met de authority manager kunnen de URL /offertes/toevoegen aanspreken.
