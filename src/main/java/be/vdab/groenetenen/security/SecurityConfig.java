@@ -1,12 +1,13 @@
 package be.vdab.groenetenen.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 @EnableWebSecurity	// @EnableWebSecurity integreert Spring security en Spring MVC
 // Je erft van WebSecurityConfigurerAdapter. Je kan in je class methods overriden om Spring security te configureren.
@@ -18,18 +19,30 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	/* Je maakt een bean van het type InMemoryUserDetailsManager. Je houdt met deze bean principals bij in het interne geheugen.
 	 * Je leest ze verder in de cursus uit een database. */
-	@Bean
+	/*@Bean
 	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 		
 		return new InMemoryUserDetailsManager(
 						User.builder().username("joe").password("{noop}theboss").authorities(MANAGER).build(),
-						User.builder().username("averell").password("{noop}hungry").authorities(HELPDESKMEDEWERKER, MAGAZIJNIER).build());
+						User.builder().username("averell").password("{noop}hungry").authorities(HELPDESKMEDEWERKER, MAGAZIJNIER).build());*/
 		/*
 		 * Je geeft aan de InMemoryUserDetailsManager constructor enkele Users (principals) mee.
 		 * Je maakt een User met het builder design pattern. Je vermeldt de gebruikersnaam, het passwoord en de authorities.
 		 * Voor het paswoord staat {noop}. Dit betekent dat Spring het paswoord niet-versleuteld onthoudt. Je leest verder in de cursus werken met versleutelde paswoorden.
 		 */
 		
+	/*}*/	// Vervangen in "Principals en authorization in een database"
+	
+	@Bean
+	JdbcDaoImpl jdbcDaoImpl(DataSource dataSource) {
+		
+		/* De class JdbcDaoImpl leest principals uit de database. Deze class moet weten uit welke database hij de principals moet lezen.
+		 * Je injecteert daartoe de DataSource die al naar de database groenetenen verwijst in de huidige method.
+		 */
+		
+		JdbcDaoImpl impl = new JdbcDaoImpl();
+		impl.setDataSource(dataSource);
+		return impl;
 	}
 	
 	@Override	// Je overridet de method die de web eigenschappen van Spring security configureert.
