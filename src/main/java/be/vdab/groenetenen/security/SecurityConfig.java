@@ -93,6 +93,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 			 // Voor alle andere URL's moet de gebruiker minstens ingelogd zijn.
 			.mvcMatchers("/**").authenticated();
 		
+		http.httpBasic();		// [Niet-browser REST clients] Activeert in de website basic authentication als 2° authenticatie manier (naast form authenticatie).
+		
 	}
 	
 }
