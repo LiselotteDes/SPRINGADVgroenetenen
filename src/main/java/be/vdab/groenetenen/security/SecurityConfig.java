@@ -3,6 +3,7 @@ package be.vdab.groenetenen.security;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 @EnableWebSecurity	// @EnableWebSecurity integreert Spring security en Spring MVC
-// Je erft van WebSecurityConfigurerAdapter. Je kan in je class methods overriden om Spring security te configureren.
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {	
+// Je erft van WebSecurityConfigurerAdapter. Je kan in je class methods overriden om Spring security te configureren.
 
 	private static final String MANAGER = "manager";
 	private static final String HELPDESKMEDEWERKER = "helpdeskmedewerker";
