@@ -16,6 +16,14 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String MANAGER = "manager";
 	private static final String HELPDESKMEDEWERKER = "helpdeskmedewerker";
 	private static final String MAGAZIJNIER = "magazijnier";
+	// [Afwijkende tabel structuren]
+	private static final String USERS_BY_USERNAME = "select naam as username, paswoord as password, actief as enabled from gebruikers where naam = ?";
+	private static final String AUTHORITIES_BY_USERNAME = "select gebruikers.naam as username, rollen.naam as authorities"
+														+ " from gebruikers inner join gebruikersrollen"
+														+ " on gebruikers.id = gebruikersrollen.gebruikerid"
+														+ " inner join rollen"
+														+ " on rollen.id = gebruikersrollen.rolid"
+														+ " where gebruikers.naam = ?";
 	
 	/* Je maakt een bean van het type InMemoryUserDetailsManager. Je houdt met deze bean principals bij in het interne geheugen.
 	 * Je leest ze verder in de cursus uit een database. */
@@ -40,8 +48,14 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * Je injecteert daartoe de DataSource die al naar de database groenetenen verwijst in de huidige method.
 		 */
 		
+		// [Default tabel structuren]
 		JdbcDaoImpl impl = new JdbcDaoImpl();
 		impl.setDataSource(dataSource);
+		
+		// [Afwijkende tabel structuren]
+		impl.setUsersByUsernameQuery(USERS_BY_USERNAME);
+		impl.setAuthoritiesByUsernameQuery(AUTHORITIES_BY_USERNAME);
+		
 		return impl;
 	}
 	
