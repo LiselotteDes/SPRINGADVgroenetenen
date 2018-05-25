@@ -19,5 +19,6 @@
 		<input type="submit" value="Inloggen">
 	</form>
 	
+	<div th:if="${param.error != null}" class="fout">Verkeerde gebruikersnaam of paswoord.</div>
 </body>
 </html>
