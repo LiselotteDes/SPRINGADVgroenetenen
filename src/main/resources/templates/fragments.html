@@ -3,7 +3,7 @@
 	Je beschrijft een fragment als onderdeel van een HTML pagina.
 	Eén pagina kan één of meerdere fragments bevatten.
 -->
-<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--
 	Je definieert een fragment met de naam head en één parameter: title.
 	Dit fragment begint hier en loopt tot de bijbehorende eindtag: </head>. 
@@ -53,11 +53,12 @@
 			<li>
 				<a th:href="@{?locale=fr_BE}">Français</a>
 			</li>
-			<li>
+			<li sec:authorize="isAnonymous()">
 				<a th:href="@{/login}">Aanmelden</a>
 			</li>
-			<li>
+			<li sec:authorize="isAuthenticated()">
 				<form method="post" th:action="@{/logout}" id="logoutform">
+					<span sec:authentication="name"></span>		<!-- Voegt de naam van de huidige gebruiker toe -->
 					<input type="submit" value="Afmelden" id="logoutbutton">
 				</form>
 			</li>
