@@ -51,6 +51,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()		// De gebruiker authenticeert zich door zijn gebruikersnaam en paswoord te tikken in een HTML form.
 			.loginPage("/login")
 			.and()
+			.logout()
+			.logoutSuccessUrl("/")
+			.and()
 			.authorizeRequests()
 			 // Je definieert autorisatie: enkel ingelogde gebruikers met de authority manager kunnen de URL /offertes/toevoegen aanspreken.
 			.mvcMatchers("/offertes/toevoegen").hasAuthority(MANAGER)
