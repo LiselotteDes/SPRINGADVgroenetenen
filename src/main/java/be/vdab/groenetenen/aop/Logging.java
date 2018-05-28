@@ -40,7 +40,7 @@ class Logging {
 		builder.append("\nMethod\t\t").append(joinPoint.getSignature().toLongString());
 		Arrays.stream(joinPoint.getArgs()).forEach(object -> builder.append("\nParameter\t").append(object));
 		
-		LOGGER.error(builder.toString());
+		LOGGER.error(builder.toString(), ex);
 		
 	}
 	
