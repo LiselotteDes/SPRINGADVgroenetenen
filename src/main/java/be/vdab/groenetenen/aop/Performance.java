@@ -5,12 +5,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /* "Performance" als voorbeeld van Around advice: je houdt per Service class method bij hoelang het uitvoeren duurde. */
 
 @Aspect
 @Component
+@Order(1)
 class Performance {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Performance.class);

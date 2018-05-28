@@ -9,14 +9,16 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /* "Auditing" als voorbeeld van "Before/After Returning advice". Je houdt met auditing bij welke gebruiker op welk moment welke use case uitvoert. */
 
-@Aspect			// Je definieert een class als aspect (= de combinatie van advice en pointcut) met @Aspect.
-@Component		// Een aspect moet zelf ook een Spring bean zijn, vandaar @Component.
+@Aspect		// Je definieert een class als aspect (= de combinatie van advice en pointcut) met @Aspect.
+@Component	// Een aspect moet zelf ook een Spring bean zijn, vandaar @Component.
+@Order(2)	// Als Spring een join point uitvoert waarop meerdere advices worden opgeroepen, bepaal je met @Order in welke volgorde Spring de bijbehorende advices uitvoert.
 class Auditing {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Auditing.class);
