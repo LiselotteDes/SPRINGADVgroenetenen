@@ -33,7 +33,7 @@ class Auditing {
 	 * Je geeft een parameter returning mee als je de returnwaarde van het join point wil weten.
 	 * Je tikt daarbij de naam van een Object parameter in de method schrijfAudit. Spring vult die parameter met de returnwaarde van het join point.
 	 */
-	@AfterReturning(pointcut = "execution(* be.vdab.groenetenen.services.*.*(..))", returning = "returnValue")
+	@AfterReturning(pointcut = "be.vdab.groenetenen.aop.PointcutExpressions.services()", returning = "returnValue")
 	
 	/* Je geeft de method, die het advice voorstelt, een parameter van het type JoinPoint.
 	 * Deze parameter verwijst naar het join point waarvóór Spring het advice uitvoert en geeft interessante informatie over dit join point.

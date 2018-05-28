@@ -18,7 +18,7 @@ class Performance {
 	/* Je definieert een method als around advice met @Around met een pointcut expressie.
 	 * Elke keer je een method oproept die bij deze pointcut expressie hoort, voert Spring de method schrijfPerformance uit, niet de opgeroepen method zelf.
 	 */
-	@Around("execution(* be.vdab.groenetenen.services.*.*(..))")
+	@Around("be.vdab.groenetenen.aop.PointcutExpressions.services()")
 	
 	/* 1°) Je geeft de method die het advice voorstelt een ProceedingJoinPoint parameter van het type ProceedingJoinPoint.
 	 * 	   ProceedingJoinPoint erft van JoinPoint en bevat extra functionaliteit die je nodig hebt in around advice.

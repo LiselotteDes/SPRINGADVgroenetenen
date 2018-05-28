@@ -24,7 +24,7 @@ class Statistieken {
 	 * Elke keer je een method oproept die bij deze pointcut expressie hoort, voert Spring na de opgeroepen method de method statistiekenBijwerken uit,
 	 * ongeacht of de opgeroepen method al of niet een exception werpt.
 	 */
-	@After("execution(* be.vdab.groenetenen.services.*.*(..))")
+	@After("be.vdab.groenetenen.aop.PointcutExpressions.services()")
 	void statistiekBijwerken(JoinPoint joinPoint) {
 		
 		String joinPointSignatuur = joinPoint.getSignature().toLongString();
